@@ -112,9 +112,9 @@ func (r *SMBVolumeReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		return ctrl.Result{}, err
 	}
 
-	// PV and PVC created successfully. Return and requeue
-
-	return ctrl.Result{Requeue: true}, nil
+	// PV and PVC created successfully.
+	//return ctrl.Result{Requeue: true}, nil
+	return ctrl.Result{Requeue: false}, nil
 }
 
 type PVData struct {
