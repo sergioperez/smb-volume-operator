@@ -1,0 +1,9 @@
+apiVersion: storage.sergio.link/v1alpha1
+kind: SMBVolume
+metadata:
+  name: sample
+  namespace: default
+spec:
+  path: "//test.myorg.com/path/to/dir"
+  readOnly: false
+  secretName: "testvolume"

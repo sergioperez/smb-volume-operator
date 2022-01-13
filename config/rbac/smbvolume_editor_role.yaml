@@ -1,0 +1,24 @@
+# permissions for end users to edit smbvolumes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: smbvolume-editor-role
+rules:
+- apiGroups:
+  - storage.sergio.link
+  resources:
+  - smbvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - storage.sergio.link
+  resources:
+  - smbvolumes/status
+  verbs:
+  - get
