@@ -156,7 +156,7 @@ func (r *SMBVolumeReconciler) GeneratePVC(smbVolume *storagev1alpha1.SMBVolume) 
 		},
 		StorageClassName: &emptyString,
 		VolumeMode:       &mode,
-		VolumeName:       getPVName(pvc.Name, pvc.Namespace),
+		VolumeName:       getPVName(smbVolume.Name, smbVolume.Namespace),
 	}
 	ctrl.SetControllerReference(smbVolume, pvc, r.Scheme)
 	return pvc
