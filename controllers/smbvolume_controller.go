@@ -18,6 +18,8 @@ package controllers
 
 import (
 	"context"
+	"crypto/sha1"
+	"encoding/hex"
 	"k8s.io/apimachinery/pkg/api/errors"
 
 	"k8s.io/apimachinery/pkg/runtime"
@@ -164,6 +166,7 @@ func (r *SMBVolumeReconciler) GeneratePV(smbVolume *storagev1alpha1.SMBVolume) *
 	pv := &v1.PersistentVolume{}
 	// PVC metadata
 	pv.Name = getPVName(smbVolume.Name, smbVolume.Namespace)
+	pv.Annotations = map[string]string{"smbVolume/pvc": getPVCName(smbVolume.Name), "smbVolume/namespace": smbVolume.Namespace}
 
 	// PVC spec
 	mode := v1.PersistentVolumeFilesystem
@@ -218,7 +221,11 @@ func getPVCName(name string) string {
 }
 
 func getPVName(name string, pvcNamespace string) string {
-	return "smb-" + pvcNamespace + "-" + name
+	h := sha1.New()
+	h.Write([]byte(pvcNamespace))
+	hashedNamespace := hex.EncodeToString(h.Sum(nil))
+
+	return "smb-" + name + "-" + hashedNamespace[0:6]
 }
 
 // SetupWithManager sets up the controller with the Manager.
