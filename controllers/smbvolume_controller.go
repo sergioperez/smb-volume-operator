@@ -210,9 +210,9 @@ func getVolumeAccessMode(isReadOnly bool) []v1.PersistentVolumeAccessMode {
 
 func getMountOptions(isReadOnly bool) []string {
 	if isReadOnly == true {
-		return []string{"dir_mode=0555", "file_mode=0444", "vers=3.0", "ro"}
+		return []string{"dir_mode=0555", "file_mode=0444", "vers=3.0", "ro", "sec=ntlmv2"}
 	} else {
-		return []string{"dir_mode=0775", "file_mode=0664", "vers=3.0", "rw"}
+		return []string{"dir_mode=0775", "file_mode=0664", "vers=3.0", "rw", "sec=ntlmv2"}
 	}
 }
 
